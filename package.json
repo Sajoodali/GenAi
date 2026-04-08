@@ -2,9 +2,11 @@
   "name": "genai",
   "version": "1.0.0",
   "description": "This is complet mern project",
-  "main": "index.js",
+  "main": "server.js",
+  "module": "es6",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,13 @@
   "bugs": {
     "url": "https://github.com/Sajoodali/GenAi/issues"
   },
-  "homepage": "https://github.com/Sajoodali/GenAi#readme"
+  "homepage": "https://github.com/Sajoodali/GenAi#readme",
+  "dependencies": {
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }
