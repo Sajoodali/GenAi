@@ -1,0 +1,19 @@
+{
+  "name": "genai",
+  "version": "1.0.0",
+  "description": "This is complet mern project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sajoodali/GenAi.git"
+  },
+  "author": "sajoodAli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sajoodali/GenAi/issues"
+  },
+  "homepage": "https://github.com/Sajoodali/GenAi#readme"
+}
