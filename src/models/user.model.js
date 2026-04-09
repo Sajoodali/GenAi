@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
         required: true,
+        unique: [true, "Username already exists. Please choose another one."],
     },
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: [ true, "Email already exists. Please use another email address."],
     },
     password: {
         type: String,
@@ -21,3 +22,4 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model("User", userSchema);
+export default User;
