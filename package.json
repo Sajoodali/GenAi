@@ -2,6 +2,7 @@
   "name": "genai",
   "version": "1.0.0",
   "description": "This is complet mern project",
+  "type": "module",
   "main": "server.js",
   "module": "es6",
   "scripts": {
