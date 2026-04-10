@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import BlackList from "../models/blackList.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -107,14 +108,18 @@ export const loginUser = async (req, res) => {
 
 /** 
  * @name logoutUser
- * @desc Logout a user by clearing the JWT cookie
+ * @desc Logout a user by blacklisting the JWT cookie
  * @access Public
  */
-export const logoutUser = (req, res) => {
+export const logoutUser = async (req, res) => {
+    const token = req.cookies.token;
+    if (token) {
+        await BlackList.create({ token });
+    }
     res.clearCookie("token", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
     });
     res.status(200).json({ message: "Logout successful" });
-};  
+}; 
