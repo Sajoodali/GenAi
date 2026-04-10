@@ -1,14 +1,17 @@
 import { Router } from "express";
-import { registerUser } from "../controller/auth.controller.js";
+import { registerUser, loginUser, logoutUser } from "../controller/auth.controller.js";
 
 const authrouter = Router();
 
 /**
- * @route POST /api/auth/register
- * @desc Register a new user
+ * @route POST /register , /login , /logout
+ * @name registerUser , loginUser , logoutUser
+ * @desc Register a new user, Login a user and Logout a user
  * @access Public
  */
 authrouter.post("/register", registerUser);
+authrouter.post("/login", loginUser);
+authrouter.post("/logout", logoutUser);
 
 export default authrouter;
 
