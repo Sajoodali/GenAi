@@ -102,3 +102,19 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ message: "An error occurred while logging in. Please try again later." });
     }
 };
+
+
+
+/** 
+ * @name logoutUser
+ * @desc Logout a user by clearing the JWT cookie
+ * @access Public
+ */
+export const logoutUser = (req, res) => {
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+    });
+    res.status(200).json({ message: "Logout successful" });
+};  
