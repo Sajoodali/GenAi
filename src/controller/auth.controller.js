@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import BlackList from "../models/blackList.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { verifyToken } from "../middleware/auth.middleware.js";
 
 
 /**
@@ -32,7 +33,7 @@ export const registerUser = async (req, res) => {
         }
 
         const hash = await bcrypt.hash(password, 10);
-        const newUser = await User.create({ username, email, password: hash });
+        const newUser = await User.create({ username, email: email.toLowerCase(), password: hash });
 
         const token = jwt.sign(
             { id: newUser._id, username: newUser.username },
@@ -73,7 +74,7 @@ export const loginUser = async (req, res) => {
             return res.status(400).json({ message: "Email and password are required." });
         }
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email.toLowerCase() });
         if (!user) {
             return res.status(400).json({ message: "Invalid email or password." });
         }
@@ -111,15 +112,13 @@ export const loginUser = async (req, res) => {
  * @desc Logout a user by blacklisting the JWT cookie
  * @access Public
  */
-export const logoutUser = async (req, res) => {
+export const logoutUser = [verifyToken, async (req, res) => {
     const token = req.cookies.token;
-    if (token) {
-        await BlackList.create({ token });
-    }
+    await BlackList.create({ token });
     res.clearCookie("token", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
     });
-    res.status(200).json({ message: "Logout successful" });
-}; 
+    res.json({ message: "Logout successful" });
+}];
